@@ -3,7 +3,8 @@ This is a ML project that optimizes a commute. Using time of day, speed, and dis
 
 # Current Application:
 
-![speed-app](https://github.com/anatoly-rap/Commute-Optimizer/assets/102273751/e1635980-2882-4deb-9b03-c25f9c613dee)
+![opt](https://github.com/anatoly-rap/Commute-Optimizer/assets/102273751/2db6b4ca-e7f0-4203-9204-4f3f556586b6)
+
 
 # Future Features:
   - Linear Regression model to predict best time to make commute.
