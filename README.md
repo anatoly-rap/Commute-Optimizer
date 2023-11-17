@@ -3,7 +3,8 @@ This is a ML project that optimizes a commute. Using time of day, speed, and dis
 
 # Current Application:
 
-![opt](https://github.com/anatoly-rap/Commute-Optimizer/assets/102273751/2db6b4ca-e7f0-4203-9204-4f3f556586b6)
+
+![fixit](https://github.com/anatoly-rap/Commute-Optimizer/assets/102273751/60c3d74c-640e-44ed-922b-c7e54eee61cd)
 
 
 # Future Features:
