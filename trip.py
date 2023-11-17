@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QSpacerItem, QSizePolicy
+from PyQt5.QtWidgets import  QSpacerItem, QSizePolicy
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel
 from PyQt5.QtWebEngineWidgets import QWebEngineView
@@ -40,7 +40,7 @@ def calculate_metrics(data):
     return min_speed, max_speed, avg_speed
 
 def gen_speed_time_graph(data, min_speed, max_speed, avg_speed):
-    fig = px.line(data, x='Time', y='SpeedMPH', title=f'Speed Over Time (Min: {min_speed} MPH, Max: {max_speed} MPH, Avg: {avg_speed} MPH)')
+    fig = px.line(data, x='Time', y='MPH', title=f'Speed Over Time (Min: {min_speed} MPH, Max: {max_speed} MPH, Avg: {avg_speed} MPH)')
     fig.update_layout(xaxis_title='Time', yaxis_title='Speed (MPH)')
     return fig
 
@@ -58,10 +58,9 @@ def setup_header_label():
     return header_label
 
 def setup_map_view(data):
-    map_fig = gen_plot(data)
     map_view = QWebEngineView()
     map_view.setFixedSize(QSize(600, 650))
-    map_view.setHtml(map_fig.to_html(include_plotlyjs='cdn'))
+    map_view.setHtml(gen_plot(data).to_html(include_plotlyjs='cdn'))
     return map_view
 
 def setup_speed_view(data):
@@ -77,23 +76,18 @@ def main():
     main_window = QMainWindow()
     main_widget = QWidget()
     grid_layout = QGridLayout(main_widget)
-
-    header_label = setup_header_label()
-    data = load_trip()
-    map_view = setup_map_view(data)
-    speed_view = setup_speed_view(data)
-
-    grid_layout.addWidget(header_label, 0, 0, 1, 2)  # Span across the first row
-    grid_layout.addWidget(map_view, 1, 0)  # Position (row 1, column 0)
-    grid_layout.addWidget(speed_view, 1, 1)  # Position (row 1, column 1)
-    spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-    grid_layout.addItem(spacer, 2, 0, 1, 2)
-
+    grid_layout.addWidget(
+        setup_header_label(), 0, 0, 1, 2)
+    grid_layout.addWidget(
+        setup_map_view(
+            load_trip()), 1, 0)
+    grid_layout.addWidget(
+        setup_speed_view(load_trip()), 1, 1) 
+    grid_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding), 2, 0, 1, 2)
     main_widget.setLayout(grid_layout)
     main_window.setCentralWidget(main_widget)
     main_window.setFixedSize(QSize(1200, 650))
     main_window.show()
     sys.exit(app.exec_())
-
 if __name__=="__main__":
     main()
